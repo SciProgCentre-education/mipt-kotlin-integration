@@ -2,7 +2,7 @@ package ru.mipt.npm.integration.api
 
 import kotlin.math.abs
 
-object TrapezoidalIntegratorOpt: UnivariateIntegrator {
+object TrapezoidalIntegrator: UnivariateIntegrator {
     /**
      * 1D trapezoidal integration.
      * Performs 1d trapezoidal integration using sequence
