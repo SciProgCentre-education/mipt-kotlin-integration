@@ -1,16 +1,26 @@
-package ru.mipt.npm.integration.api
+package ru.mipt.npm.integration
 
 import kotlin.math.abs
 
-object TrapezoidalIntegrator: UnivariateIntegrator {
+/**
+ * @param relTol - desired relative tolerance
+ * @param absTol - desired absolute tolerance
+ * @param iniStepsNum - initial number of grid intervals
+ * @param maxIterNum] - Maximum number of the doubling grid resolution
+ */
+class TrapezoidalIntegrator(
+    val relTol : Double = DEFAULT_REL_TOL,
+    val absTol : Double = DEFAULT_ABS_TOL,
+    val iniStepsNum: Int = DEFAULT_INITIAL_STEPS_NUM,
+    val maxIterNum : Int = DEFAULT_MAX_ITER_NUM
+): UnivariateIntegrator {
     /**
      * 1D trapezoidal integration.
      * Performs 1d trapezoidal integration using sequence
      * of nested grids until the required accuracy ([relTol]/[absTol])
      * or maximum number of iterations [maxIterNum] is reached.
      */
-    override fun integrate(from: Double, to: Double, relTol: Double, absTol: Double,
-                           iniStepsNum: Int, maxIterNum: Int, function: (Double) -> Double): Double {
+    override fun integrate(from: Double, to: Double, function: (Double) -> Double): Double {
 
         require(relTol >= 1e-15) {"Relative tolerance is too small or negative"}
         require(absTol >= Double.MIN_VALUE) {"Absolute tolerance is too small or negative"}
@@ -41,5 +51,12 @@ object TrapezoidalIntegrator: UnivariateIntegrator {
             stepsNum *= 2
         }
         return result
+    }
+
+    companion object {
+        const val DEFAULT_REL_TOL: Double = 1e-8
+        const val DEFAULT_ABS_TOL: Double = 1e-8
+        const val DEFAULT_INITIAL_STEPS_NUM = 16
+        const val DEFAULT_MAX_ITER_NUM: Int = 16
     }
 }
