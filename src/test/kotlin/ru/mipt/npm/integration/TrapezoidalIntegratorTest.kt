@@ -6,12 +6,12 @@ import kotlin.math.PI
 import kotlin.math.sin
 
 
-class TrapezoidalIntegratorTest{
+class TrapezoidalIntegratorTest {
     @Test
-    fun testSin(){
+    fun testSin() {
         val integrator = TrapezoidalIntegrator()
-        val res = integrator.integrateWithInfo(0.0, PI){sin(it)}
+        val res = integrator.integrateWithInfo(0.0, PI) { sin(it) }
         println("The result of sin integration is ${res}")
-        assertEquals(2.0,res.result,1e-4)
+        assertEquals(2.0, res.result, 1e-4)
     }
 }
